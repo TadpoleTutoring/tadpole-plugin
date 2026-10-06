@@ -1,0 +1,10 @@
+{
+  "name": "tadpole",
+  "displayName": "Tadpole",
+  "version": "1.0.0",
+  "description": "Connect Claude or Codex to your Tadpole account.",
+  "author": {
+    "name": "Tadpole Tutoring"
+  },
+  "repository": "https://github.com/TadpoleTutoring/tadpole-plugin"
+}

@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "Tadpole": {
+      "type": "http",
+      "url": "https://api.tadpoletutoring.org/mcp",
+      "oauth": {
+        "clientId": "gn4q6h9CeARqcAKrfBxJuyMEhYV3rqnr",
+        "callbackPort": 8080,
+        "callbackUrl": "http://localhost:8080/callback"
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "name": "tadpole",
+  "description": "Tadpole's plugin for Claude and Codex.",
+  "owner": {
+    "name": "Tadpole Tutoring"
+  },
+  "plugins": [
+    {
+      "name": "tadpole",
+      "source": "./plugins/tadpole",
+      "description": "Connect Claude or Codex to your Tadpole account."
+    }
+  ]
+}
