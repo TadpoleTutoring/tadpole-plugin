@@ -1,8 +1,6 @@
 # Tadpole for Claude and Codex
 
-This plugin connects Claude or Codex to your Tadpole account. You can ask about your calendar, students and finances, and make changes in Tadpole. Claude or Codex shows you each change before it saves it. You sign in with your Tadpole login.
-
-The plugin also has two skills. Suggest next tasks looks at your recent and open tasks and your CRM boards, suggests what to do next, and creates the tasks you pick. Find completed tasks checks your recent sent emails and texts against your open tasks, marks the ones you confirm as complete, and then suggests what to do next.
+This plugin connects Claude or Codex to your Tadpole account. You can ask about your calendar, students, and finances. You can also make changes in Tadpole. Claude or Codex shows you each change before it saves it. You sign in with your Tadpole login.
 
 ## Codex
 
@@ -23,3 +21,12 @@ claude plugin install tadpole@tadpole
 ```
 
 Sign in uses port 8080 on your computer. If sign in fails, close anything else using that port and try again.
+
+### Task skills
+
+In Claude, the plugin also adds two skills for your tasks:
+
+- `suggest-next-tasks` looks at your recent and open tasks and your CRM boards, suggests next tasks, and creates the ones you pick.
+- `find-completed-tasks` checks the emails and texts your staff sent recently against your open tasks, marks the ones you confirm as complete, and then suggests next tasks.
+
+To start one, ask Claude in your own words, like "What should I do next?" or "Which of my tasks are already done?" In Claude Code, you can also type `/tadpole:suggest-next-tasks` or `/tadpole:find-completed-tasks`.
