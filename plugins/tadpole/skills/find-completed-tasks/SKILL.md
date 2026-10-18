@@ -13,10 +13,10 @@ If a tool asks which organization to use, its message lists each organization's 
 
 ## 1. Gather the tasks and messages
 
-Pass `limit` 100 to `list_tasks` and `list_messages`, and page with `offset` while `more` is true.
+Pass `limit` 25 to `list_tasks` and `list_messages`, and page with `offset` while `more` is true.
 
 1. Open tasks: call `list_tasks` with `status` set to `pending`. If there are none, say so in one sentence and go to step 5.
-2. Sent messages: call `list_messages` with `direction` set to `out`. It covers the last 14 days. If the admin asked about other days, pass `start_date` and `end_date`.
+2. Sent messages: call `list_messages` with `direction` set to `out` and `short_text` set to true, which keeps the first 300 characters of each text. It covers the last 14 days. If the admin asked about other days, pass `start_date` and `end_date`.
 3. Boards: call `list_crm_boards`, so that you can name the boards when you confirm.
 
 ## 2. Match
@@ -25,8 +25,8 @@ Use only messages that a staff member sent, where `by_staff` is true. Tadpole se
 
 A message matches a task when both of these hold:
 
-- It went to someone the task is about, to someone in that person's family, or to someone the task's name names. Compare the message's `to_people` with the task's `about_people` by kind and id. To see a person's family, call `search_people` with their name. Each result lists their family.
-- Its subject or text does what the task's name and details say. For example, a task named "Send Maya's progress report" matches an email to Maya's mother that shares or describes the report.
+- It went to someone the task is about, to someone in that person's family, or to someone the task's name names. Compare the message's `to_people` with the task's `about_people` by kind and id. To see a person's family, call `get_person` with their `kind` and their id as `person_id`.
+- Its subject or text does what the task's name and details say. For example, a task named "Send Maya's progress report" matches an email to Maya's mother that shares or describes the report. When the first 300 characters leave it unclear, read that person's sent messages in full: call `list_messages` with their `kind` and `person_id`, and `direction` set to `out`.
 
 The message must also be newer than the task's `created` time.
 
@@ -47,7 +47,7 @@ If nothing matches, say what you checked and that no task looks done. Then go to
 ## 4. Mark them complete
 
 1. For each task the admin confirmed, call `update_task` again with exactly the same details plus its `confirm_token`.
-2. A confirmation lasts 10 minutes. If one has expired, preview again and use the new `confirm_token`. If the new preview matches the old one, the admin's yes still holds.
+2. A confirmation lasts 10 minutes. If one has expired, preview again and use the new `confirm_token`. If the new preview matches the old one, the admin's yes still holds. If it differs, show it and ask.
 3. If Tadpole answers "Nothing to change.", someone already marked that task complete. Skip it and say so.
 4. Say how many tasks you marked complete.
 

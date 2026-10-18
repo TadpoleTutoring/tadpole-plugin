@@ -24,16 +24,16 @@ Skip the question when the admin already said both. When tadpole:find-completed-
 
 ## 2. Look at the tasks and boards
 
-Pass `limit` 100 to `list_tasks`, `get_crm_column_people`, and `search_people`, and page with `offset` while `more` is true.
+Pass `limit` 25 to `list_tasks` and `search_people`, and `limit` 100 to `get_crm_column_people`. Page with `offset` while `more` is true. For Needs attention, the first page is enough.
 
 - Open tasks: call `list_tasks` with `status` set to `pending`. Read every open task, whatever the admin chose, so that you can skip duplicates.
-- Recent completed tasks: call `list_tasks` with `status` set to `complete` and `changed_since` set to 14 days ago. Add any tasks that tadpole:find-completed-tasks just marked complete.
+- Recent completed tasks: call `list_tasks` with `status` set to `complete` and `changed_since` set to the date 13 days before today, so that with today it covers the last 14 days. Add any tasks that tadpole:find-completed-tasks just marked complete.
 - The Assigned to me view: add `assigned_to_me` set to true.
 - Overdue tasks: an open task is overdue when its due day is before today.
 - Needs attention: call `search_people` with `group` set to `needs_attention`.
 - Board columns: `list_crm_boards` gives each board's columns and their rules. `get_crm_column_people` gives the people in a column.
 
-An older Tadpole may lack `changed_since` and `assigned_to_me`. Then use the completed tasks due in the last 14 days, and say that you went by due day. In place of the Assigned to me view, use All Tasks and say so.
+If the tasks have no `changed` or `assigned_to_me` field, Tadpole ignored those filters. Then use the completed tasks due in the last 14 days, and say that you went by due day. In place of the Assigned to me view, use All Tasks and say so.
 
 ## 3. Suggest
 
@@ -59,7 +59,7 @@ Number the suggestions, and name anyone who will get a notice. End with one ques
 ## 4. Create the ones the admin picks
 
 1. For each task the admin picked, call `create_task` again with exactly the same details plus its `confirm_token`.
-2. If the admin changes a task, preview it again and show the new preview before you create it.
+2. If the admin changes a task, preview it again, show the new preview, and create it only after the admin says yes.
 3. A confirmation lasts 10 minutes. If one has expired, preview again and use the new `confirm_token`. If the new preview matches the old one, the admin's yes still holds. If it differs, show it and ask.
 4. Say what you created in one or two sentences.
 
