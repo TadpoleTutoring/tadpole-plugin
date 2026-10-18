@@ -24,7 +24,7 @@ Skip the question when the admin already said both. When tadpole:find-completed-
 
 ## 2. Look at the tasks and boards
 
-Pass `limit` 25 to `list_tasks` and `search_people`, and `limit` 100 to `get_crm_column_people`. Page with `offset` while `more` is true. For Needs attention, the first page is enough.
+Pass `limit` 25 to `list_tasks` and `search_people`, and `limit` 100 to `get_crm_column_people`. Page with `offset` while `more` is true. For Needs attention, the first page is enough. Also pass `with_details` set to true to every `list_tasks` call, so that each task has its details, its times, and its people by kind and id.
 
 - Open tasks: call `list_tasks` with `status` set to `pending`. Read every open task, whatever the admin chose, so that you can skip duplicates.
 - Recent completed tasks: call `list_tasks` with `status` set to `complete` and `changed_since` set to the date 13 days before today, so that with today it covers the last 14 days. Add any tasks that tadpole:find-completed-tasks just marked complete.
@@ -33,7 +33,7 @@ Pass `limit` 25 to `list_tasks` and `search_people`, and `limit` 100 to `get_crm
 - Needs attention: call `search_people` with `group` set to `needs_attention`.
 - Board columns: `list_crm_boards` gives each board's columns and their rules. `get_crm_column_people` gives the people in a column.
 
-If the tasks have no `changed` or `assigned_to_me` field, Tadpole ignored those filters. Then use the completed tasks due in the last 14 days, and say that you went by due day. In place of the Assigned to me view, use All Tasks and say so.
+If the tasks have no `changed` or `assigned_to_me` field even with `with_details`, Tadpole is older. It ignores `with_details`, `changed_since`, and `assigned_to_me`, and the fields are simply missing. Then use the completed tasks due in the last 14 days, and say that you went by due day. In place of the Assigned to me view, use All Tasks and say so. Get each person's kind and id from `search_people`.
 
 ## 3. Suggest
 

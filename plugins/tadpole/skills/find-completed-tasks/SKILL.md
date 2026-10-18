@@ -15,7 +15,7 @@ If a tool asks which organization to use, its message lists each organization's 
 
 Pass `limit` 25 to `list_tasks` and `list_messages`, and page with `offset` while `more` is true.
 
-1. Open tasks: call `list_tasks` with `status` set to `pending`. If there are none, say so in one sentence and go to step 5.
+1. Open tasks: call `list_tasks` with `status` set to `pending` and `with_details` set to true, so that each task has its details, its `created` time, and its people by kind and id. If there are none, say so in one sentence and go to step 5.
 2. Sent messages: call `list_messages` with `direction` set to `out` and `short_text` set to true, which keeps the first 300 characters of each text. It covers the last 14 days. If the admin asked about other days, pass `start_date` and `end_date`.
 3. Boards: call `list_crm_boards`, so that you can name the boards when you confirm.
 
@@ -32,7 +32,7 @@ The message must also be newer than the task's `created` time.
 
 Rate each match as strong or possible. Rate it as possible when the message went to more than five people, or when the task repeats, like a monthly report or invoice, since the message may be for an earlier round. Leave out weak guesses.
 
-An older Tadpole lacks `by_staff`, `type`, `to_people`, `about_people`, `created`, and the `direction` filter. Then read every message and keep those whose `direction` is `out`. Skip task notices (subjects that start with "You have a new task:" or "Task Update:"), subjects that end with "| Meeting Reminder", and messages that went only in the app (channel `in app`). Compare the names in the message's `to` with the task's `about`, and rate every match as possible.
+If the tasks have no `created` field even with `with_details`, or the messages have no `by_staff` field, Tadpole is older. It ignores `with_details`, `direction`, and `short_text`, and the fields `by_staff`, `type`, `to_people`, `about_people`, and `created` are simply missing. Then read every message and keep those whose `direction` is `out`. Skip task notices (subjects that start with "You have a new task:" or "Task Update:"), subjects that end with "| Meeting Reminder", and messages that went only in the app (channel `in app`). Compare the names in the message's `to` with the task's `about`, and rate every match as possible.
 
 ## 3. Confirm
 
